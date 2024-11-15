@@ -5,7 +5,6 @@ import { WagmiProvider, createConfig, http } from 'wagmi';
 import { mainnet, sepolia } from 'wagmi/chains';
 import { BrowserProvider } from 'ethers';
 import { createContext, useContext, useState, useEffect } from 'react';
-import type { MetaMaskInpageProvider } from "@metamask/providers";
 
 // Create a client
 const queryClient = new QueryClient();

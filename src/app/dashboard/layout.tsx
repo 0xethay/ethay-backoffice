@@ -74,7 +74,7 @@ export default function DashboardLayout({
       </div>
 
       {/* Main Content */}
-      <div className='flex-1 ml-64'>
+      <div className='flex-1'>
         <div className='max-w-7xl mx-auto px-1800 py-8'>{children}</div>
       </div>
     </div>

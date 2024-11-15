@@ -1,9 +1,29 @@
 'use client';
+import { SellerSignup } from '@/components/SellerSignup';
+import { ContractContext } from '@/context/ContractContext';
 import { useWallet } from '@/providers/web3-provider';
+import { useEffect, useState } from 'react';
+import { useContext } from 'react';
 import { BiWallet, BiPackage, BiMoney, BiHistory } from 'react-icons/bi';
 
 export default function SellerDashboard() {
   const { address } = useWallet();
+  const [isSignedUp, setIsSignedUp] = useState(false);
+  const { isVerifiedHuman, isSeller } = useContext(ContractContext);
+  const handleSignup = (address: string) => {
+    console.log('Signup submitted', { address });
+    setIsSignedUp(true);
+  };
+
+  useEffect(() => {
+    if (isVerifiedHuman && isSeller) {
+      setIsSignedUp(true);
+    }
+  }, [isVerifiedHuman, isSeller]);
+
+  if (!isSignedUp) {
+    return <SellerSignup onSignup={handleSignup} />;
+  }
 
   return (
     <div className='space-y-8'>

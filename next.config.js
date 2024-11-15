@@ -1,15 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  webpack: (config) => {
-    config.externals.push('pino-pretty', 'lokijs', 'encoding');
-    return config;
-  },
-  experimental: {
-    appDir: true,
-  },
+  reactStrictMode: true,
   images: {
-    domains: ['example.com'],
-  }
+    domains: ['picsum.photos'],
+  },
 };
 
-module.exports = nextConfig; 
+module.exports = nextConfig;

@@ -45,10 +45,10 @@ export default function DashboardLayout({
               <Link
                 key={item.name}
                 href={item.href}
-                className='flex items-center gap-3 px-4 py-3 text-white rounded-lg hover:bg-[#2e2560]'
+                className='flex items-center gap-3 px-4 py-3 text-white rounded-lg hover:bg-[#2e2560] transition-colors duration-200 ease-in-out'
               >
                 <item.icon className='w-5 h-5' />
-                {item.name}
+                <span className='font-medium'>{item.name}</span>
               </Link>
             ))}
           </nav>

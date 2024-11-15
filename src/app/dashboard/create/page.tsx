@@ -91,8 +91,8 @@ export default function CreateRWA() {
         formData.name,
         formData.price,
         formData.quantity,
-        formData.description,
         ipfsHash,
+        formData.description,
         { gasLimit: 500000 }
       );
 

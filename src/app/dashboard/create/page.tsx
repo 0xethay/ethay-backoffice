@@ -5,7 +5,7 @@ import axios from 'axios';
 import { ethers } from 'ethers';
 import { ETHAY_ABI } from '@/app/constants/abi';
 import { CONTRACT_ADDRESSES } from '@/app/constants/contract';
-export default function CreateRWA() {
+export default function CreateProduct() {
   const [formData, setFormData] = useState({
     name: '',
     price: '',
@@ -89,11 +89,16 @@ export default function CreateRWA() {
 
       const mintResult = await contract.createProduct(
         formData.name,
-        formData.price,
+        ethers.parseUnits(formData.price, 18), // Convert price to wei
         formData.quantity,
         ipfsHash,
         formData.description,
         { gasLimit: 500000 }
+      );
+
+      console.log(
+        '        ethers.parseUnits(formData.price, 11)',
+        ethers.parseUnits(formData.price, 18)
       );
 
       const receipt = await mintResult.wait();
@@ -134,10 +139,13 @@ export default function CreateRWA() {
   };
 
   return (
-    <div style={{ backgroundColor: '#3e307b' }} className='min-h-screen'>
-      <div className='max-w-4xl mx-auto px-8 py-12'>
-        <h2 className='font-display text-xl uppercase tracking-wider text-text-primary mb-6'>
-          Create RWA
+    <div
+      style={{ backgroundColor: '#3e307b' }}
+      className='min-h-screen flex flex-col'
+    >
+      <div className='flex-grow max-w-4xl mx-auto px-8 py-12'>
+        <h2 className='font-display text-xl uppercase tracking-wider text-text-primary mb-6 text-center'>
+          Create Product
         </h2>
         <form className='space-y-8' onSubmit={handleSubmit}>
           <div className='space-y-3'>
@@ -149,9 +157,9 @@ export default function CreateRWA() {
               name='name'
               value={formData.name}
               onChange={handleInputChange}
-              className='w-full px-4 py-2 bg-prime-gray border border-prime-gold/10 
+              className='w-full px-4 py-2 bg-prime-gray border border-prime-gold/20 
                        rounded text-black placeholder-text-secondary/50
-                       focus:outline-none focus:border-prime-gold/30
+                       focus:outline-none focus:border-prime-gold/40
                        transition-all duration-300 mt-0'
               placeholder='e.g., My Property'
               required
@@ -166,9 +174,9 @@ export default function CreateRWA() {
               name='price'
               value={formData.price}
               onChange={handleInputChange}
-              className='w-full px-4 py-2 bg-prime-gray border border-prime-gold/10 
+              className='w-full px-4 py-2 bg-prime-gray border border-prime-gold/20 
                        rounded text-black placeholder-text-secondary/50
-                       focus:outline-none focus:border-prime-gold/30
+                       focus:outline-none focus:border-prime-gold/40
                        transition-all duration-300 mt-0'
               placeholder='e.g., 250,000'
               required
@@ -183,9 +191,9 @@ export default function CreateRWA() {
               name='quantity'
               value={formData.quantity}
               onChange={handleInputChange}
-              className='w-full px-4 py-2 bg-prime-gray border border-prime-gold/10 
+              className='w-full px-4 py-2 bg-prime-gray border border-prime-gold/20 
                        rounded text-black placeholder-text-secondary/50
-                       focus:outline-none focus:border-prime-gold/30
+                       focus:outline-none focus:border-prime-gold/40
                        transition-all duration-300 mt-0'
               placeholder='e.g., 100'
               required
@@ -198,9 +206,9 @@ export default function CreateRWA() {
             <input
               type='file'
               onChange={handleFileChange}
-              className='w-full px-4 py-2 bg-prime-gray border border-prime-gold/10 
+              className='w-full px-4 py-2 bg-prime-gray border border-prime-gold/20 
                        rounded text-black placeholder-text-secondary/50
-                       focus:outline-none focus:border-prime-gold/30
+                       focus:outline-none focus:border-prime-gold/40
                        transition-all duration-300 mt-0'
               required
             />
@@ -220,9 +228,9 @@ export default function CreateRWA() {
               name='description'
               value={formData.description}
               onChange={handleInputChange}
-              className='w-full px-4 py-2 bg-prime-gray border border-prime-gold/10 
+              className='w-full px-4 py-2 bg-prime-gray border border-prime-gold/20 
                        rounded text-black placeholder-text-secondary/50
-                       focus:outline-none focus:border-prime-gold/30
+                       focus:outline-none focus:border-prime-gold/40
                        transition-all duration-300 mt-0'
               placeholder='e.g., Description of the property'
               required

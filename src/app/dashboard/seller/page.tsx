@@ -21,9 +21,9 @@ export default function SellerDashboard() {
     }
   }, [isVerifiedHuman, isSeller]);
 
-  if (!isSignedUp) {
-    return <SellerSignup onSignup={handleSignup} />;
-  }
+  // if (!isSignedUp) {
+  //   return <SellerSignup onSignup={handleSignup} />;
+  // }
 
   return (
     <div className='space-y-8'>

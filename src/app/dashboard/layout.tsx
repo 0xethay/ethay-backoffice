@@ -27,10 +27,12 @@ export default function DashboardLayout({
   const navigationItems = [
     { name: 'Dashboard', icon: BiHomeAlt, href: '/dashboard/seller' },
     { name: 'Create', icon: BiPlus, href: '/dashboard/create' },
+    { name: 'Products', icon: BiPlus, href: '/dashboard/my-product' },
+    { name: 'Orders', icon: BiPlus, href: '/dashboard/order' },
   ];
 
   return (
-    <div className='min-h-screen bg-gray-50 dark:bg-gray-900'>
+    <div className='min-h-screen bg-gray-50 dark:bg-gray-900 flex'>
       {/* Sidebar */}
       <div className='fixed inset-y-0 left-0 w-64 bg-[#3e307b] shadow-lg'>
         <div className='flex flex-col h-full'>
@@ -46,8 +48,9 @@ export default function DashboardLayout({
                 key={item.name}
                 href={item.href}
                 className='flex items-center gap-3 px-4 py-3 text-white rounded-lg hover:bg-[#2e2560] transition-colors duration-200 ease-in-out'
+                aria-label={item.name}
               >
-                <item.icon className='w-5 h-5' />
+                <item.icon className='w-5 h-5' aria-hidden='true' />
                 <span className='font-medium'>{item.name}</span>
               </Link>
             ))}
@@ -61,8 +64,9 @@ export default function DashboardLayout({
                 router.push('/login');
               }}
               className='flex items-center gap-3 px-4 py-3 w-full text-white rounded-lg hover:bg-[#2e2560]'
+              aria-label='Logout'
             >
-              <BiLogOut className='w-5 h-5' />
+              <BiLogOut className='w-5 h-5' aria-hidden='true' />
               Logout
             </button>
           </div>
@@ -70,8 +74,8 @@ export default function DashboardLayout({
       </div>
 
       {/* Main Content */}
-      <div className='ml-64'>
-        <div className='max-w-7xl mx-auto px-8 py-8'>{children}</div>
+      <div className='flex-1 ml-64'>
+        <div className='max-w-7xl mx-auto px-1800 py-8'>{children}</div>
       </div>
     </div>
   );

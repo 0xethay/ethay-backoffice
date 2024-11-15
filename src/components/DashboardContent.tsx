@@ -84,9 +84,17 @@ export default function DashboardContent() {
   };
 
   useEffect(() => {
-    // TODO: get seller id from connect wallet
-    getProductsBySellerId('0xe219f46e0aa82c274ab9baf4de43ee5a0b9bb156');
+    const sellerId = localStorage.getItem('address')?.toLowerCase();
+    if (sellerId) {
+      getProductsBySellerId(sellerId);
+    } else {
+      console.warn('No seller ID found in local storage');
+    }
   }, []);
+
+  const showProductDetail = (product: any) => {
+    console.log('Product details:', product);
+  };
 
   return (
     <motion.div
@@ -114,7 +122,7 @@ export default function DashboardContent() {
         animate={{ x: 0, opacity: 1 }}
         transition={{ delay: 0.2 }}
       >
-        Featured Products
+        My Products
       </motion.h2>
 
       <motion.div
@@ -126,7 +134,7 @@ export default function DashboardContent() {
             <Card className='overflow-hidden hover:shadow-lg transition-shadow duration-300'>
               <CardHeader className='p-0'>
                 <Image
-                  src={product.image}
+                  src={'https://ipfs.io/ipfs/' + product.ipfsLink}
                   alt={product.name}
                   width={300}
                   height={200}
@@ -138,7 +146,12 @@ export default function DashboardContent() {
                 <p className='text-gray-600 font-semibold mb-4'>
                   {product.price}
                 </p>
-                <Button className='w-full'>Product Detail</Button>
+                <Button
+                  className='w-full'
+                  onClick={() => showProductDetail(product)}
+                >
+                  Product Detail
+                </Button>
               </CardContent>
             </Card>
           </motion.div>

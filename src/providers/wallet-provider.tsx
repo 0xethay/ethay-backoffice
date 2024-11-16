@@ -1,7 +1,7 @@
 "use client";
 import { createContext, useContext, useState, useEffect } from 'react';
 import { BrowserProvider } from 'ethers';
-import type { MetaMaskInpageProvider } from "@metamask/providers";
+
 
 type WalletContextType = {
   provider: BrowserProvider | null;

@@ -10,7 +10,7 @@ import {
   CardDescription,
   CardFooter,
 } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui/Button';
 import { useWallet } from '@/providers/web3-provider';
 export default function LoginPageContent() {
   const [loginSuccess, setLoginSuccess] = useState(false);

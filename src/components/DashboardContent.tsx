@@ -101,29 +101,29 @@ export default function DashboardContent() {
       initial='hidden'
       animate='visible'
       variants={containerVariants}
-      className='p-6 bg-gradient-to-br from-gray-50 to-gray-100'
+      className='p-6 bg-gradient-to-br from-purple-100 to-purple-100'
     >
-      <nav className='mb-8'>
+      {/* <nav className='mb-8'>
         <ul className='flex space-x-4'>
           <li>
             <Link
               href='/dashboard'
-              className='text-blue-600 hover:text-blue-800 font-medium'
+              className='text-purple-600 hover:text-purple-800 font-medium'
             >
               Products
             </Link>
           </li>
         </ul>
-      </nav>
+      </nav> */}
 
       <motion.h2
-        className='text-3xl font-bold mb-6 text-gray-800'
+        className='text-3xl font-bold mb-6 text-purple-800'
         initial={{ x: -20, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ delay: 0.2 }}
       >
         My Products
-        </motion.h2>
+      </motion.h2>
 
       <motion.div
         className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'
@@ -139,20 +139,25 @@ export default function DashboardContent() {
                   width={300}
                   height={200}
                   className='w-full h-48 object-cover'
+                  onError={(e) => {
+                    e.currentTarget.src = '/ethay-logo.png';
+                  }}
                 />
               </CardHeader>
               <CardContent className='p-4'>
-                <CardTitle className='text-xl mb-2'>{product.name}</CardTitle>
-                <p className='text-gray-600 font-semibold mb-4'>
-                  {product.price}
+                <CardTitle className='text-xl mb-2 text-purple-700'>
+                  {product.name}
+                </CardTitle>
+                <p className='text-purple-600 font-semibold mb-4'>
+                  {product.price} USDT
                 </p>
                 <Button
-                  className='w-full'
+                  className='w-full bg-purple-600 text-white hover:bg-purple-700'
                   onClick={() => showProductDetail(product)}
                 >
                   Product Detail
-                </Button>              
-                </CardContent>
+                </Button>
+              </CardContent>
             </Card>
           </motion.div>
         ))}

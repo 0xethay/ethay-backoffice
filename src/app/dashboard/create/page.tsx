@@ -4,7 +4,7 @@ import { useState, FormEvent } from 'react';
 import axios from 'axios';
 import { ethers } from 'ethers';
 import { ETHAY_ABI } from '@/app/constants/abi';
-import { CONTRACT_ADDRESSES } from '@/app/constants/contract';
+import { CONTRACT_ADDRESSES } from '@/contract/address';
 import Ethay from '@/components/Ethay';
 
 export default function CreateProduct() {

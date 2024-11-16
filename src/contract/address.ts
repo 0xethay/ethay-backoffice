@@ -1,4 +1,13 @@
-export const ContractEthayAddress = '0x2612D031139ecC9F2FB6833409669e1392C82eFe'
-export const ContractWorldIDAddress = '0x24f8F18FFB94C4b802F16DB390cF02E2143142B5'
-export const ContractUsdtAddress = '0xa59bBfC6EbbbCd5E6Da1FfF36644a3E1D4744000'
+export const CONTRACT_ADDRESSES = {
+  BaseSepolia: {
+    USDT: '0x28aD5A6F6592Eaa2DaAf6d01c5Bcf71E0092dAf4',
+    WORLD_ID_ADDRESS: '0x6468728E7C60E7f4A85053eDD37f11ba974FD07A',
+    ETHAY: '0xEA16f419A88E9d2b7425e5C611bf15116af1A4C1',
+  },
+  Sepolia: {
+    USDT: '0x28aD5A6F6592Eaa2DaAf6d01c5Bcf71E0092dAf4',
+    CCIP_SENDER: '0xD5c1A8122066dD0aCD3c82C39527B5380242fC44',
+  },
+}
+
 export const RPCNETWORK = 'https://base-sepolia-rpc.publicnode.com'

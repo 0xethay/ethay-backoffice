@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react'
 import { motion } from 'framer-motion'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/input'
 import {
   Select,
@@ -20,6 +20,7 @@ import {
 import { abi as abiWorldID } from '../contract/artifacts/contracts/WorldID.sol/VerifyWorldID.json'
 import { decodeAbiParameters, parseAbiParameters } from 'viem'
 import { ContractContext } from '@/context/ContratContext'
+import { CONTRACT_ADDRESSES } from '@/contract/address'
 interface ArbitratorSignupProps {
   onSignup: (address: string) => void
 }
@@ -45,7 +46,7 @@ export function ArbitratorSignup({ onSignup }: ArbitratorSignupProps) {
   const submitTx = async (proof: ISuccessResult) => {
     try {
       await writeContractAsync({
-        address: `0x24f8F18FFB94C4b802F16DB390cF02E2143142B5`,
+        address: CONTRACT_ADDRESSES.BaseSepolia.WORLD_ID_ADDRESS as `0x${string}`,
         account: account.address!,
         abi: abiWorldID,
         functionName: 'verifyHuman',
@@ -95,8 +96,8 @@ export function ArbitratorSignup({ onSignup }: ArbitratorSignupProps) {
             </Button>
           ) : (
             <IDKitWidget
-              app_id="app_staging_e44455b6975bef763f3aaedff6fcdc03"
-              action="verifyhuman2"
+              app_id={process.env.NEXT_PUBLIC_WORLDID_APP_ID! as `app_${string}`}
+              action={process.env.NEXT_PUBLIC_WORLDID_ACTION!}
               signal={account.address!}
               onSuccess={submitTx}
             >

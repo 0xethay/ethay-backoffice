@@ -3,10 +3,10 @@ import { ethers } from 'ethers'
  import {abi as WorldIDAbi } from '@/contract/artifacts/contracts/WorldID.sol/VerifyWorldID.json'
  import {abi as EthayAbi } from '@/contract/artifacts/contracts/Ethay.sol/Contract.json'
 import { useAccount } from 'wagmi'
-import { ContractEthayAddress, ContractWorldIDAddress, RPCNETWORK } from '@/contract/address'
+import { CONTRACT_ADDRESSES, RPCNETWORK } from '../contract/address'
 import { VerifyWorldID ,Contract as Ethay} from '@/contract/typechain-types'
-
-
+ 
+ 
 interface IContract {
 
   isVerifiedHuman: boolean
@@ -46,7 +46,7 @@ export const ContractProvider = ({ children }: ChildrenProps) => {
   const [isSeller, setIsSeller] = useState(false)
   const WorldIDContract = () => {
     const contract = new ethers.Contract(
-      ContractWorldIDAddress,
+      CONTRACT_ADDRESSES.BaseSepolia.WORLD_ID_ADDRESS,
       WorldIDAbi,
       providerRPC
     ) as unknown as VerifyWorldID
@@ -56,7 +56,7 @@ export const ContractProvider = ({ children }: ChildrenProps) => {
 
   const EthayContract = async () => {
    const contract = new ethers.Contract(
-     ContractEthayAddress,
+     CONTRACT_ADDRESSES.BaseSepolia.ETHAY,
      EthayAbi,
      providerRPC
    ) as unknown as Ethay
@@ -66,7 +66,7 @@ export const ContractProvider = ({ children }: ChildrenProps) => {
   const EthayContractSigner = async () => {
     const signer = await providerWindow.getSigner()
    const contract = new ethers.Contract(
-     ContractEthayAddress,
+     CONTRACT_ADDRESSES.BaseSepolia.ETHAY,
      EthayAbi,
      signer
    ) as unknown as Ethay

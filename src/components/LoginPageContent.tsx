@@ -11,14 +11,20 @@ import {
   CardFooter,
 } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-
+import { useWallet } from '@/providers/web3-provider';
 export default function LoginPageContent() {
   const [loginSuccess, setLoginSuccess] = useState(false);
+  const { isConnected, connectWallet } = useWallet();
   const router = useRouter();
 
-  const connectWallet = async (type: 'seller' | 'judge' | 'buyer') => {
+  const connectWallets = async (type: 'seller' | 'judge' | 'buyer') => {
     // Implement your wallet connection logic here
     console.log(`Connecting wallet for ${type}`);
+    console.log(isConnected);
+    console.log(connectWallet);
+    if (!isConnected) {
+      connectWallet();
+    }
     setLoginSuccess(true);
 
     // Redirect to the appropriate dashboard after a short delay
@@ -82,7 +88,7 @@ export default function LoginPageContent() {
         >
           <Button
             className='w-full'
-            onClick={() => connectWallet(type)}
+            onClick={() => connectWallets(type)}
             disabled={loginSuccess}
           >
             {getWalletDisplay()}

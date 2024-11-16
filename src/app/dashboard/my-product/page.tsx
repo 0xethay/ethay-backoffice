@@ -13,22 +13,22 @@ const DashboardContent = dynamic(
 );
 
 export default function Dashboard() {
-  //   const [isSignedUp, setIsSignedUp] = useState(false);
-  //   const { isVerifiedHuman, isSeller } = useContext(ContractContext);
-  //   const handleSignup = (address: string) => {
-  //     console.log('Signup submitted', { address });
-  //     setIsSignedUp(true);
-  //   };
+  const [isSignedUp, setIsSignedUp] = useState(false);
+  const { isVerifiedHuman, isSeller } = useContext(ContractContext);
+  const handleSignup = (address: string) => {
+    console.log('Signup submitted', { address });
+    setIsSignedUp(true);
+  };
 
-  //   useEffect(() => {
-  //     if (isVerifiedHuman && isSeller) {
-  //       setIsSignedUp(true);
-  //     }
-  //   }, [isVerifiedHuman, isSeller]);
+  useEffect(() => {
+    if (isVerifiedHuman && isSeller) {
+      setIsSignedUp(true);
+    }
+  }, [isVerifiedHuman, isSeller]);
 
-  //   if (!isSignedUp) {
-  //     return <SellerSignup onSignup={handleSignup} />;
-  //   }
+  if (!isSignedUp) {
+    return <SellerSignup onSignup={handleSignup} />;
+  }
 
   return <DashboardContent />;
 }

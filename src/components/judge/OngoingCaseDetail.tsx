@@ -2,7 +2,7 @@ import React from 'react'
 import { Task } from '@/types/Task'
 
 interface OngoingCaseDetailProps {
-  task: Task
+  task: any
   onBack: () => void
 }
 

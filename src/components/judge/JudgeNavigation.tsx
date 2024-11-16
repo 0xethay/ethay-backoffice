@@ -18,12 +18,7 @@ export const JudgeNavigation: React.FC<JudgeNavigationProps> = ({ activeTab, set
   return (
     <nav className="flex justify-center mb-4">
       <div className="flex">
-        <button
-          className={`mx-2 px-4 py-2 rounded ${activeTab === 'new' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
-          onClick={() => handleTabClick('new')}
-        >
-          New Listing
-        </button>
+        
         <button
           className={`mx-2 px-4 py-2 rounded ${activeTab === 'ongoing' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
           onClick={() => handleTabClick('ongoing')}

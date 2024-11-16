@@ -1,10 +1,10 @@
 export interface Task {
   id: string;
-  contractAddress: string;
-  freelancer: string;
-  client: string;
+  productName: string;
+  transactionHash: string;
+  addressBuyer: string;
+  addressSeller: string;
   amount: string;
-  terms: string;
-  deadline: string;
-  state: 'Disputed' | 'InProgress' | 'Completed';
+  timestamp: string;
+  state: 'Disputed' | 'Completed';
 }

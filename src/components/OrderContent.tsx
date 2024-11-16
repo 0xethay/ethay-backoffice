@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button"
 import { useEffect, useState } from 'react';
 import { createClient } from '@supabase/supabase-js';
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
@@ -59,11 +59,21 @@ const globalStyles = `
   }
 `;
 
+// First, define the interface for your order type
+interface Order {
+  product_id: string;
+  buyer_id: string;
+  quantity: number;
+  totalPrice: number;
+  compositeKey: string;
+  // add other properties your order object has
+}
+
 export default function DashboardContent() {
-  const [orders, setOrders] = useState([]);
+  const [orders, setOrders] = useState<Order[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [trackingInfo, setTrackingInfo] = useState('');
-  const [selectedOrders, setSelectedOrders] = useState([]);
+  const [selectedOrders, setSelectedOrders] = useState<string[]>([]);
 
   const client = initializeGraphClient();
 
@@ -133,7 +143,7 @@ export default function DashboardContent() {
     // Group orders by purchase_id
     const groupedOrders = orderData.reduce((acc, order) => {
       const existingOrder = acc.find(
-        (o) => o.purchase_id === order.purchase_id
+        (o: any) => o.purchase_id === order.purchase_id
       );
       if (existingOrder) {
         existingOrder.quantity += order.quantity;
@@ -152,7 +162,7 @@ export default function DashboardContent() {
     // }
 
     const ordersData = await Promise.all(
-      subgraph_data.data.purchases.map(async (purchase) => {
+      subgraph_data?.data.purchases.map(async (purchase: any) => {
         const { data: memberData, error: memberError } = await supabase
           .from('members')
           .select('delivery_address')
@@ -272,8 +282,7 @@ export default function DashboardContent() {
     }
   };
 
-  const handleDeliverClick = (order) => {
-    // alert(JSON.stringify(order));
+  const handleOpenModal = (order: any) => {
     const orderIds = Array.isArray(order)
       ? order.map((tx) => tx.purchase_id)
       : [order.purchase_id];
@@ -323,7 +332,7 @@ export default function DashboardContent() {
         variants={containerVariants}
       >
         {orders
-          .reduce((acc, order) => {
+          .reduce((acc: Order[], order: Order) => {
             const compositeKey = `${order.product_id}-${order.buyer_id}`;
             const existingOrder = acc.find(
               (o) => o.compositeKey === compositeKey
@@ -384,7 +393,7 @@ export default function DashboardContent() {
                   {order.status === 'waiting_for_delivery' && (
                     <Button
                       className='w-full bg-green-600 text-white hover:bg-green-700 mt-2'
-                      onClick={() => handleDeliverClick(order)}
+                      onClick={() => handleOpenModal(order)}
                     >
                       Deliver
                     </Button>

@@ -8,10 +8,13 @@ module.exports = {
   darkMode: 'class',
   theme: {
     extend: {
-      colors: {
+       colors: {
         background: 'var(--background)',
         foreground: 'var(--foreground)',
       },
+      borderColor: {
+        border: "hsl(var(--border))"
+      }
     },
   },
   plugins: [],

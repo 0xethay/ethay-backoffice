@@ -1,35 +1,8 @@
+@tailwind base;
+@tailwind components;
 @tailwind utilities;
 
 :root {
-  --background: #3e307b;
-  --foreground: #ffffff;
-}
+  --border: 20 5.9% 90%; /* Example HSL value - adjust as needed */
 
-.dark {
-  --background: #3e307b;
-  --foreground: #ffffff;
-}
-
-body {
-  background-color: #3e307b;
-  color: #ffffff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  margin: 0;
-  font-family: 'Arial', sans-serif;
-}
-
-.container {
-  max-width: 1200px;
-  padding: 20px;
-  text-align: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
-}
-
-.btn-primary {
-  @apply bg-blue-600 hover:bg-blue-700 text-white;
 }

@@ -2,10 +2,11 @@
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { WagmiProvider, createConfig, http } from 'wagmi';
-import { mainnet, sepolia } from 'wagmi/chains';
+import { baseSepolia, mainnet, sepolia } from 'wagmi/chains';
 import { BrowserProvider } from 'ethers';
 import { createContext, useContext, useState, useEffect } from 'react';
-
+import { fallback, injected, unstable_connector } from '@wagmi/core'
+  
 declare global {
   interface Window {
     ethereum?: {
@@ -21,12 +22,15 @@ const queryClient = new QueryClient();
 
 // Create wagmi config
 const config = createConfig({
-  chains: [mainnet, sepolia],
+  chains: [baseSepolia],
   transports: {
-    [mainnet.id]: http(),
-    [sepolia.id]: http(),
+    [baseSepolia.id]: fallback([
+      unstable_connector(injected),
+      http(baseSepolia.rpcUrls.default.http[0]),
+    ]),
   },
-});
+})
+  
 
 // Create wallet context
 type WalletContextType = {

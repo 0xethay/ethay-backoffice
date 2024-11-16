@@ -30,8 +30,30 @@ const itemVariants = {
   },
 };
 
+// Define global styles for the font
+const globalStyles = `
+  @font-face {
+    font-family: 'GeistMono';
+    src: url('/fonts/GeistMonoVF.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  .geist-mono-font {
+    font-family: 'GeistMono', monospace;
+  }
+`;
+
 export default function DashboardContent() {
   const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    // Inject global styles
+    const styleSheet = document.createElement('style');
+    styleSheet.type = 'text/css';
+    styleSheet.innerText = globalStyles;
+    document.head.appendChild(styleSheet);
+  }, []);
 
   const initializeGraphClient = () => {
     const graphClient = new ApolloClient({
@@ -101,7 +123,7 @@ export default function DashboardContent() {
       initial='hidden'
       animate='visible'
       variants={containerVariants}
-      className='p-6 bg-gradient-to-br from-purple-100 to-purple-100'
+      className='p-6 bg-gradient-to-br from-purple-100 to-purple-100 geist-mono-font'
     >
       {/* <nav className='mb-8'>
         <ul className='flex space-x-4'>
@@ -133,7 +155,7 @@ export default function DashboardContent() {
           <motion.div key={product.id} variants={itemVariants}>
             <Card className='overflow-hidden hover:shadow-lg transition-shadow duration-300'>
               <CardHeader className='p-0'>
-                <Image
+                <img
                   src={'https://ipfs.io/ipfs/' + product.ipfsLink}
                   alt={product.name}
                   width={300}
@@ -149,14 +171,14 @@ export default function DashboardContent() {
                   {product.name}
                 </CardTitle>
                 <p className='text-purple-600 font-semibold mb-4'>
-                  {product.price} USDT
+                  {product.price} USDT - Quantity: {product.quantity}
                 </p>
-                <Button
+                {/* <Button
                   className='w-full bg-purple-600 text-white hover:bg-purple-700'
                   onClick={() => showProductDetail(product)}
                 >
                   Product Detail
-                </Button>
+                </Button> */}
               </CardContent>
             </Card>
           </motion.div>

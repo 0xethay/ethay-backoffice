@@ -30,6 +30,14 @@ const itemVariants = {
   },
 };
 
+const truncateWords = (text: string, wordLimit: number) => {
+  const words = text.split(' ');
+  if (words.length > wordLimit) {
+    return words.slice(0, wordLimit).join(' ') + '...';
+  }
+  return text;
+};
+
 // Define global styles for the font
 const globalStyles = `
   @font-face {
@@ -170,8 +178,14 @@ export default function DashboardContent() {
                 <CardTitle className='text-xl mb-2 text-purple-700'>
                   {product.name}
                 </CardTitle>
-                <p className='text-purple-600 font-semibold mb-4'>
-                  {product.price} USDT - Quantity: {product.quantity}
+                <div className='flex justify-between mb-2'>
+                  <p className='text-purple-600 font-semibold'>
+                    {product.price} USDT
+                  </p>
+                  <p className='text-gray-600'>Quantity: {product.quantity}</p>
+                </div>
+                <p className='text-gray-600 mb-4 text-sm'>
+                  {truncateWords(product.description, 100)}
                 </p>
                 {/* <Button
                   className='w-full bg-purple-600 text-white hover:bg-purple-700'

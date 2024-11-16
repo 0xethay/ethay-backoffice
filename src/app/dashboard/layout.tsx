@@ -1,82 +1,104 @@
 'use client';
-import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { useWallet } from '@/providers/web3-provider';
-import { BiHomeAlt, BiLogOut, BiPlus } from 'react-icons/bi';
+
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ethers } from 'ethers';
 
 export default function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const { isConnected, disconnectWallet } = useWallet();
+  const [isAccountOpen, setIsAccountOpen] = useState(false);
+  const [account, setAccount] = useState<string | null>(null);
   const router = useRouter();
 
   useEffect(() => {
-    if (!isConnected) {
-      localStorage.setItem('lastPath', window.location.pathname);
-      router.push('/login');
+    const connectWallet = async () => {
+      if (typeof window !== 'undefined' && window.ethereum) {
+        const provider = new ethers.BrowserProvider(window.ethereum);
+        try {
+          const accounts = await provider.send('eth_requestAccounts', []);
+          setAccount(accounts[0]);
+        } catch (error) {
+          console.error('Failed to connect wallet:', error);
+        }
+      }
+    };
+    connectWallet();
+  }, []);
+
+  const handleLogout = () => {
+    setAccount(null);
+    router.push('/login');
+  };
+
+  const getWalletDisplay = () => {
+    if (account) {
+      return `${account.slice(0, 6)}...${account.slice(-4)}`;
     }
-  }, [isConnected, router]);
-
-  if (!isConnected) {
-    return null;
-  }
-
-  const navigationItems = [
-    { name: 'Dashboard', icon: BiHomeAlt, href: '/dashboard/seller' },
-    { name: 'Create', icon: BiPlus, href: '/dashboard/create' },
-    { name: 'Products', icon: BiPlus, href: '/dashboard/my-product' },
-    { name: 'Orders', icon: BiPlus, href: '/dashboard/order' },
-  ];
+    return 'Connect Wallet';
+  };
 
   return (
-    <div className='min-h-screen bg-gray-50 dark:bg-gray-900 flex'>
-      {/* Sidebar */}
-      <div className='fixed inset-y-0 left-0 w-64 bg-[#3e307b] shadow-lg'>
-        <div className='flex flex-col h-full'>
-          {/* Logo */}
-          <div className='p-6 border-b border-gray-200 dark:border-gray-700'>
-            <h1 className='text-xl font-bold text-white'>Seller Portal</h1>
-          </div>
-
-          {/* Navigation */}
-          <nav className='flex-1 p-4 space-y-1'>
-            {navigationItems.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                className='flex items-center gap-3 px-4 py-3 text-white rounded-lg hover:bg-[#2e2560] transition-colors duration-200 ease-in-out'
-                aria-label={item.name}
-              >
-                <item.icon className='w-5 h-5' aria-hidden='true' />
-                <span className='font-medium'>{item.name}</span>
-              </Link>
-            ))}
-          </nav>
-
-          {/* Logout Button */}
-          <div className='p-4 border-t border-gray-200 dark:border-gray-700'>
-            <button
-              onClick={() => {
-                disconnectWallet();
-                router.push('/login');
-              }}
-              className='flex items-center gap-3 px-4 py-3 w-full text-white rounded-lg hover:bg-[#2e2560]'
-              aria-label='Logout'
+    <div className='min-h-screen bg-gray-100'>
+      <header className='bg-white shadow'>
+        <div className='max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 flex justify-between items-center'>
+          <h1 className='text-3xl font-bold text-gray-900'>dash</h1>
+          <nav className='space-x-4'>
+            <Link
+              href='/dashboard'
+              className='text-gray-600 hover:text-gray-900'
             >
-              <BiLogOut className='w-5 h-5' aria-hidden='true' />
-              Logout
+              Home
+            </Link>
+            <Link
+              href='/dashboard/create'
+              className='text-gray-600 hover:text-gray-900'
+            >
+              Create Product
+            </Link>
+            <Link
+              href='/dashboard/order'
+              className='text-gray-600 hover:text-gray-900'
+            >
+              Order
+            </Link>
+          </nav>
+          <div className='relative'>
+            <button
+              onClick={() => setIsAccountOpen(!isAccountOpen)}
+              className='bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded'
+            >
+              {getWalletDisplay()}
             </button>
+            <AnimatePresence>
+              {isAccountOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.2 }}
+                  className='absolute right-0 mt-2 w-48 bg-white rounded-md overflow-hidden shadow-xl z-10'
+                >
+                  <button
+                    onClick={handleLogout}
+                    className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left'
+                  >
+                    Logout
+                  </button>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </div>
-      </div>
+      </header>
 
-      {/* Main Content */}
-      <div className='flex-1'>
-        <div className='max-w-7xl mx-auto px-1800 py-8'>{children}</div>
-      </div>
+      <main>
+        <div className='max-w-7xl mx-auto py-6 sm:px-6 lg:px-8'>{children}</div>
+      </main>
     </div>
   );
 }

@@ -123,7 +123,7 @@ export default function DashboardContent() {
         transition={{ delay: 0.2 }}
       >
         My Products
-      </motion.h2>
+        </motion.h2>
 
       <motion.div
         className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'
@@ -151,8 +151,8 @@ export default function DashboardContent() {
                   onClick={() => showProductDetail(product)}
                 >
                   Product Detail
-                </Button>
-              </CardContent>
+                </Button>              
+                </CardContent>
             </Card>
           </motion.div>
         ))}

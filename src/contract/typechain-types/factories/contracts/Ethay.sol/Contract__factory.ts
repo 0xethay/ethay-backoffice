@@ -15,7 +15,7 @@ import type {
 } from "ethers";
 import type { NonPayableOverrides } from "../../../common";
 import type {
-  Contract,
+
   ContractInterface,
 } from "../../../contracts/Ethay.sol/Contract";
 

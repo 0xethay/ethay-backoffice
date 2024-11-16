@@ -1,35 +1,54 @@
-import { Web3Provider } from '@/providers/web3-provider';
-import './globals.css';
-import localFont from 'next/font/local';
+'use client'
 
-const druk = localFont({
-  src: [
-    {
-      path: './fonts/DrukWide-Medium.woff2',
-      weight: '500',
-      style: 'normal',
-    },
-    {
-      path: './fonts/DrukWide-Bold.woff2',
-      weight: '700',
-      style: 'normal',
-    },
-  ],
-  variable: '--font-druk',
-});
+import type { Metadata } from 'next'
+import localFont from 'next/font/local'
+import './globals.css'
+import { WagmiProvider } from 'wagmi'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { createConfig, http } from 'wagmi'
+import { baseSepolia } from 'wagmi/chains'
+import { fallback, injected, unstable_connector } from '@wagmi/core'
+import { ContractProvider } from '@/context/ContratContext'
+
+const geistSans = localFont({
+  src: './fonts/GeistVF.woff',
+  variable: '--font-geist-sans',
+  weight: '100 900',
+})
+const geistMono = localFont({
+  src: './fonts/GeistMonoVF.woff',
+  variable: '--font-geist-mono',
+  weight: '100 900',
+})
+
+const queryClient = new QueryClient()
+
+const config = createConfig({
+  chains: [baseSepolia],
+  transports: {
+    [baseSepolia.id]: fallback([
+      unstable_connector(injected),
+      http(baseSepolia.rpcUrls.default.http[0]),
+    ]),
+  },
+})
 
 export default function RootLayout({
   children,
-}: {
-  children: React.ReactNode;
-}) {
+}: Readonly<{
+  children: React.ReactNode
+}>) {
   return (
-    <html lang='en' className='light'>
+    <html lang="en">
       <body
-        className={`${druk.variable} font-body bg-prime-black text-text-primary`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Web3Provider>{children}</Web3Provider>
+        <WagmiProvider config={config}>
+          <QueryClientProvider client={queryClient}>
+            <ContractProvider>{children}</ContractProvider>
+          </QueryClientProvider>
+        </WagmiProvider>
       </body>
     </html>
-  );
+  )
 }

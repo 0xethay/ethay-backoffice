@@ -4,9 +4,11 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui/Button';
 import { useEffect, useState } from 'react';
 import { ApolloClient, gql, InMemoryCache } from '@apollo/client';
+import { useAccount } from 'wagmi';
+import { ethers } from 'ethers';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -54,7 +56,7 @@ const globalStyles = `
 
 export default function DashboardContent() {
   const [products, setProducts] = useState([]);
-
+  const { address } = useAccount()
   useEffect(() => {
     // Inject global styles
     const styleSheet = document.createElement('style');
@@ -114,9 +116,9 @@ export default function DashboardContent() {
   };
 
   useEffect(() => {
-    const sellerId = localStorage.getItem('address')?.toLowerCase();
+    const sellerId = address
     if (sellerId) {
-      getProductsBySellerId(sellerId);
+      getProductsBySellerId(sellerId.toLowerCase());
     } else {
       console.warn('No seller ID found in local storage');
     }
@@ -180,7 +182,7 @@ export default function DashboardContent() {
                 </CardTitle>
                 <div className='flex justify-between mb-2'>
                   <p className='text-purple-600 font-semibold'>
-                    {product.price} USDT
+                    {ethers.formatUnits(product.price, 18)} USDT
                   </p>
                   <p className='text-gray-600'>Quantity: {product.quantity}</p>
                 </div>

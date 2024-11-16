@@ -4,7 +4,7 @@ import React, { useContext, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { motion } from "framer-motion"
 import { Card, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/Button"
 
 export default function LoginPageContent() {
   const [loginSuccess, setLoginSuccess] = useState(false)

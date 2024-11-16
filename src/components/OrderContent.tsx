@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/Button"
 import { useEffect, useState } from 'react';
 import { createClient } from '@supabase/supabase-js';
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client';

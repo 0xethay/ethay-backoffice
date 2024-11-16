@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Task } from '@/types/Task'
 import { Slider } from "@/components/ui/slider"
 import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/Button"
 
 interface NewListingDetailProps {
   task: Task

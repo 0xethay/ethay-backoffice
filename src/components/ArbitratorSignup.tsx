@@ -21,7 +21,7 @@ import { abi as abiWorldID } from '../contract/artifacts/contracts/WorldID.sol/V
 import { decodeAbiParameters, parseAbiParameters } from 'viem'
 import { ContractContext } from '@/context/ContratContext'
 import { CONTRACT_ADDRESSES } from '@/contract/address'
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/Button";
 interface ArbitratorSignupProps {
   onSignup: (address: string) => void
 }

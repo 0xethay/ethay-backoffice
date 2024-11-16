@@ -112,7 +112,6 @@ export default function CreateProduct() {
       alert('Error during minting. Check console for details.');
     }
   };
-
   const handleRegisterAsSeller = async () => {
     try {
       if (!window.ethereum) {
@@ -244,9 +243,10 @@ export default function CreateProduct() {
             type='submit'
             disabled={isUploading || !ipfsHash}
             className={`w-full px-8 py-4 bg-prime-gray border border-prime-gold/20
-              ${isUploading || !ipfsHash 
-                ? 'opacity-50 cursor-not-allowed' 
-                : 'hover:border-prime-gold/40'
+              ${
+                isUploading || !ipfsHash
+                  ? 'opacity-50 cursor-not-allowed'
+                  : 'hover:border-prime-gold/40'
               } text-text-primary rounded
               transition-all duration-300 uppercase tracking-wider mt-6`}
           >

@@ -53,6 +53,42 @@ export default function DashboardContent() {
     return data;
   };
 
+  async function updateOrderStatusDelivered(
+    purchaseId: string,
+    sellerId: string
+  ) {
+    const { data: currentOrder, error: fetchError } = await supabase
+      .from('orders')
+      .select('status')
+      .eq('purchase_id', purchaseId)
+      .eq('seller_id', sellerId)
+      .single();
+
+    if (fetchError) {
+      throw new Error(fetchError.message);
+    }
+
+    if (currentOrder.status !== 'waiting_for_delivery') {
+      throw new Error(
+        'Order status must be "waiting_for_delivery" to set as "delivered".'
+      );
+    }
+
+    // Update status to delivered
+    const { data: order, error } = await supabase
+      .from('orders')
+      .update({ status: 'delivered' })
+      .eq('purchase_id', purchaseId)
+      .eq('seller_id', sellerId)
+      .select();
+
+    if (error) {
+      throw new Error(error.message);
+    }
+
+    return order;
+  }
+
   useEffect(() => {
     fetchOrders();
   }, []);

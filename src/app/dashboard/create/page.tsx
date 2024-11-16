@@ -15,6 +15,7 @@ export default function CreateProduct() {
 
   const [ipfsHash, setIpfsHash] = useState('');
   const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [isUploading, setIsUploading] = useState(false);
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -27,12 +28,15 @@ export default function CreateProduct() {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
       setImagePreview(URL.createObjectURL(file));
+      setIsUploading(true);
 
       try {
         const hash = await uploadToIPFS(file);
         setIpfsHash(hash);
       } catch (error) {
         console.error('Failed to upload file:', error);
+      } finally {
+        setIsUploading(false);
       }
     }
   };
@@ -238,11 +242,15 @@ export default function CreateProduct() {
           </div>
           <button
             type='submit'
-            className='w-full px-8 py-4 bg-prime-gray border border-prime-gold/20
-              hover:border-prime-gold/40 text-text-primary rounded
-              transition-all duration-300 uppercase tracking-wider mt-6'
+            disabled={isUploading || !ipfsHash}
+            className={`w-full px-8 py-4 bg-prime-gray border border-prime-gold/20
+              ${isUploading || !ipfsHash 
+                ? 'opacity-50 cursor-not-allowed' 
+                : 'hover:border-prime-gold/40'
+              } text-text-primary rounded
+              transition-all duration-300 uppercase tracking-wider mt-6`}
           >
-            Submit
+            {isUploading ? 'Uploading...' : 'Submit'}
           </button>
           <button
             type='button'

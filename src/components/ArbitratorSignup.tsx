@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react'
 import { motion } from 'framer-motion'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
+
 import { Input } from '@/components/ui/input'
 import {
   Select,
@@ -21,6 +21,7 @@ import { abi as abiWorldID } from '../contract/artifacts/contracts/WorldID.sol/V
 import { decodeAbiParameters, parseAbiParameters } from 'viem'
 import { ContractContext } from '@/context/ContratContext'
 import { CONTRACT_ADDRESSES } from '@/contract/address'
+import { Button } from "@/components/ui/button";
 interface ArbitratorSignupProps {
   onSignup: (address: string) => void
 }

@@ -1,89 +1,57 @@
-# Ethay Backoffice
+## Ethay
 
-A web-based backoffice dashboard built with Next.js, TypeScript, and Tailwind CSS. This application provides seller management and administrative functionalities.
+![Ethay Image](https://img5.pic.in.th/file/secure-sv1/undefined_image-7281b2364ff4bf31e.md.png)
 
-## 🚀 Features
+Ethay: A super extension that transforms social platforms like Twitter into a Web3 marketplace. List, shop, and swap seamlessly while staying fraud-free with on-chain validation and real-time transactions. The future of social commerce starts here!
 
-- Modern dashboard interface
-- Seller management system
-- Authentication and authorization
-- Responsive design with Tailwind CSS
-- Built with TypeScript for type safety
+### Repositories
 
-## 📋 Prerequisites
+The project is organized into four main repositories:
 
-Before you begin, ensure you have the following installed:
-- Node.js (version 16.x or higher)
-- pnpm (recommended) or npm
-- Git
+- **[Contract](https://github.com/0xethay/ethay-smart-contracts)**: Contains the smart contracts that power the on-chain functionalities.
+- **[Back Office](https://github.com/0xethay/ethay-backoffice)**: Manages the administrative and backend operations.
+- **[Post](https://github.com/0xethay/ethay_post)**: Handles the posting and listing of products on social media platforms.
+- **[Extension](https://github.com/0xethay/ethay-extension)**: The browser extension that integrates with social media for a seamless user experience.experience.
+- **[Subgraph](https://github.com/0xethay/ethay-subgraph)**: Provides a GraphQL API for querying blockchain data efficiently.
 
-## 🛠️ Installation
+### Key Features
 
-1. Clone the repository:
-```bash
-git clone https://github.com/0xethay/ethay-backoffice.git
-cd ethay-backoffice
-```
+#### Social Media Marketplace Integration
 
-2. Install dependencies:
-```bash
-pnpm install
-```
+![Ethay Image](https://img2.pic.in.th/pic/Screenshot-2567-11-16-at-23.53.47.md.png)
 
-3. Set up environment variables:
-```bash
-cp .env.example .env.local
-```
-Then edit `.env.local` with your configuration values.
+- Enables users to list and discover products directly on platforms like Twitter.
+- Leverages the social context for higher trust and engagement between buyers and sellers.
 
-## 🚀 Running the Project
+#### Shopping Management Extension
 
-### Development Mode
-```bash
-pnpm dev
-```
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+![Ethay Image](https://img2.pic.in.th/pic/9c42f0b3-4cc6-4656-9882-835c620b3f62.md.jpeg)
 
-### Production Build
-```bash
-pnpm build
-pnpm start
-```
+- Provides tools for managing shopping lists, wishlists, and purchase history.
+- Integrates with social media to offer personalized shopping recommendations.
+- Allows users to track prices and receive alerts for discounts and deals.
 
-## 📁 Project Structure
+#### On-Chain DAPP Instantly
 
-```
-src/
-├── app/                 # App router pages
-│   ├── dashboard/      # Dashboard routes
-│   └── login/          # Authentication pages
-├── components/         # Reusable components
-└── middleware.ts       # Authentication middleware
-```
+![Ethay Image](https://img5.pic.in.th/file/secure-sv1/84a98676-6854-43e5-a6f2-bda4868dec24.md.jpeg)
 
-## 🔧 Technologies Used
+- Facilitates secure transactions using smart contracts.
+- Supports crypto payments, swaps, and trading of tokenized assets, ensuring seamless Web3 compatibility.
 
-- [Next.js](https://nextjs.org/) - React framework
-- [TypeScript](https://www.typescriptlang.org/) - Type safety
-- [Tailwind CSS](https://tailwindcss.com/) - Styling
-- [Next Auth](https://next-auth.js.org/) - Authentication
+#### Fraud Prevention and Resolution System
 
-## 🤝 Contributing
+- **Seller Verification**: Sellers are verified through Worldcoin, ensuring legitimacy and reducing the risk of scams.
+- **Dispute Handling via Judges**:
+  - Disputes are resolved by judges selected through the Pyth Network for unbiased arbitration.
+  - Judges are also verified using Worldcoin to ensure accountability.
+- **Decentralized Randomization**: Pyth Network's randomization process eliminates bias, ensuring fairness in fraud investigations and resolutions.
 
-Contributions are welcome! Please follow these steps:
+#### Transparency and Security
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+- On-chain records provide immutable proof of transactions, enhancing accountability.
+- Fraudulent activities can be reported, reviewed, and resolved in a decentralized manner.
 
-## 📝 License
+#### User-Centric Design
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 📧 Contact
-
-Your Name - [@your_twitter](https://twitter.com/your_twitter)
-
-Project Link: [https://github.com/0xethay/ethay-backoffice](https://github.com/0xethay/ethay-backoffice)
+- Easy for both Web2 users (social network familiarity) and Web3 users (blockchain integration).
+- Combines social validation with blockchain security for a trustworthy marketplace experience.

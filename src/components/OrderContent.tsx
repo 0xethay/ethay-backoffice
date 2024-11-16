@@ -17,9 +17,9 @@ const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 const initializeGraphClient = () => {
   const graphClient = new ApolloClient({
-    uri: 'https://api.studio.thegraph.com/query/54090/ethay/version/latest',
+    uri: process.env.NEXT_PUBLIC_GRAPH_URL,
     cache: new InMemoryCache(),
-  });
+  })
   return graphClient;
 };
 

@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/Button';
+import { Button } from '@/components/ui/button';
 import { useEffect, useState } from 'react';
 import { createClient } from '@supabase/supabase-js';
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
@@ -17,7 +17,7 @@ const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 const initializeGraphClient = () => {
   const graphClient = new ApolloClient({
-    uri: 'https://api.studio.thegraph.com/query/54090/ethay/version/latest',
+    uri: process.env.NEXT_PUBLIC_GRAPH_URL,
     cache: new InMemoryCache(),
   });
   return graphClient;

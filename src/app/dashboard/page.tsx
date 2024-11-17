@@ -11,7 +11,7 @@ const DashboardContent = dynamic(
     ssr: false,
   }
 )
-
+ 
 export default function Dashboard() {
   const [isSignedUp, setIsSignedUp] = useState(false)
   const { isVerifiedHuman, isSeller } = useContext(ContractContext)

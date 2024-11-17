@@ -8,4 +8,8 @@ export interface Task {
   timestamp: string;
   state: 'Disputed' | 'Completed';
   terms?: string;
+  contractAddress?: string;   
+  deadline?: string;
+  freelancer?: string;
+  client?: string;
 }

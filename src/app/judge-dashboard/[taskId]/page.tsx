@@ -15,19 +15,17 @@ export default function TaskDetailPage() {
   const [task, setTask] = useState<Task | null>(null)
 
   useEffect(() => {
-    // In a real application, you would fetch the task details from an API
-    // For now, we'll use mock data
-    const mockTask: Task = {
-      id: params.taskId as string,
-      contractAddress: '0x123456789abcdef',
-      freelancer: '0xabcdef123456789',
-      client: '0x987654321fedcba',
-      amount: '0.05 ETH',
-      terms: 'Design a logo for a startup',
-      deadline: '10/1/2023, 12:00:00 PM',
-      state: searchParams.get('state') as 'Disputed' | 'InProgress' | 'Completed' || 'InProgress',
-    }
-    setTask(mockTask)
+    const fetchTask = async () => {
+      try {
+        const response = await fetch(`/api/tasks/${params.taskId}`); // Fetch task from API
+        const data: Task = await response.json();
+        setTask(data);
+      } catch (error) {
+        console.error('Error fetching task:', error);
+      }
+    };
+
+    fetchTask();
   }, [params.taskId, searchParams])
 
   const handleBack = () => {
@@ -56,7 +54,7 @@ export default function TaskDetailPage() {
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbLink href={`/judge-dashboard?tab=${task.state === 'Completed' ? 'history' : task.state === 'InProgress' ? 'ongoing' : 'new'}`}>
+            <BreadcrumbLink href={`/judge-dashboard?tab=${task.state === 'Completed' ? 'history' : task.state === 'Disputed' ? 'new' : 'ongoing'}`}>
               {getStageText(task.state)}
             </BreadcrumbLink>
           </BreadcrumbItem>
@@ -68,7 +66,6 @@ export default function TaskDetailPage() {
       </Breadcrumb>
 
       {task.state === 'Disputed' && <NewListingDetail task={task} onBack={handleBack} />}
-      {task.state === 'InProgress' && <OngoingCaseDetail task={task} onBack={handleBack} />}
       {task.state === 'Completed' && <HistoryDetail task={task} onBack={handleBack} />}
     </>
   )

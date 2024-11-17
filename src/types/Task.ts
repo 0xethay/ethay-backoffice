@@ -7,4 +7,5 @@ export interface Task {
   amount: string;
   timestamp: string;
   state: 'Disputed' | 'Completed';
+  terms?: string;
 }

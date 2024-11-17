@@ -8,12 +8,12 @@ import { VerifyWorldID ,Contract as Ethay} from '@/contract/typechain-types'
  
  
 interface IContract {
-
   isVerifiedHuman: boolean
   isJudge: boolean
   isSeller: boolean
   sendTxRegisterAsJudge: () => Promise<string | undefined>
   sendTxRegisterAsSeller: () => Promise<string | undefined>
+  sendTxResolveDispute: (productId: string, purchaseId: string, buyerAmount: string) => Promise<string | undefined>
 }
 
 export const ContractContext = createContext<IContract>({
@@ -22,6 +22,7 @@ export const ContractContext = createContext<IContract>({
   isSeller: false,
   sendTxRegisterAsJudge: async () => '',
   sendTxRegisterAsSeller: async () => '',
+  sendTxResolveDispute: async () => '',
 })
 
 interface ChildrenProps {
@@ -99,6 +100,21 @@ export const ContractProvider = ({ children }: ChildrenProps) => {
       // throw new Error(error.error.data.message)
     }
   }
+  const sendTxResolveDispute = async (productId: string, purchaseId: string, buyerAmount: string) => {
+    try {
+      console.log('productId: ' + productId)
+      console.log('purchaseId: ' + purchaseId)
+      console.log('buyerAmount: ' + buyerAmount)  
+      if (!window.ethereum) return
+      const contract = await EthayContractSigner()
+      const transaction = await contract.resolveDispute(productId, purchaseId, buyerAmount)
+      await transaction.wait()
+      return transaction.hash
+    } catch (error: any) {
+      throw new Error(error.reason)
+      // throw new Error(error.error.data.message)
+    }
+  }
   const sendTxRegisterAsSeller = async () => {
     try {
       if (!window.ethereum) return
@@ -153,6 +169,7 @@ export const ContractProvider = ({ children }: ChildrenProps) => {
         isSeller,
         sendTxRegisterAsJudge,
         sendTxRegisterAsSeller,
+        sendTxResolveDispute,
       }}
     >
       {!initialLoading && children}
